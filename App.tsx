@@ -8,13 +8,10 @@ import { StatusBar } from 'expo-status-bar';
 import DashboardScreen from './screens/DashboardScreen';
 import NotificationsScreen from './screens/NotificationsScreen';
 import MenuScreen from './screens/MenuScreen';
-
-// Global Context for State Management
 export const AppContext = createContext<any>(null);
 const Tab = createBottomTabNavigator();
 
 export default function App() {
-  // --- Simulation State ---
   const [temp, setTemp] = useState(32);
   const [humidity, setHumidity] = useState(40);
   const [tempThreshold, setTempThreshold] = useState(35);
@@ -23,8 +20,6 @@ export default function App() {
   const [notifications, setNotifications] = useState<any[]>([
     { id: '1', title: 'System Online', message: 'Abacanana laboratory monitoring active.', time: '08:00 AM' }
   ]);
-
-  // --- Logic: Simulate Sensor Fluctuations ---
   useEffect(() => {
     const interval = setInterval(() => {
       // Simulate minor changes in lab environment
