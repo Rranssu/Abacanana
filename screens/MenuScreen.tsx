@@ -1,59 +1,70 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, Switch, TouchableOpacity, ScrollView, SafeAreaView, ActivityIndicator, Alert } from 'react-native';
+import { AppContext } from '../App'; // Global context for immediate UI updates
 import { styles } from './styles/MenuScreen.styles';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const MenuScreen: React.FC = () => {
-  const [pushEnabled, setPushEnabled] = useState(true);
-  const [unit, setUnit] = useState('C');
+  // Pulling global states and API URL from AppContext
+  const { 
+    API_BASE, 
+    unit, setUnit, 
+    notificationsEnabled, setNotificationsEnabled 
+  } = useContext(AppContext);
+
   const [loading, setLoading] = useState(true);
 
-  // 1. Fetch current settings from script.js on mount
+  // 1. Fetch current settings from the modular settingsRoutes on mount
   useEffect(() => {
     fetchSettings();
   }, []);
 
   const fetchSettings = async () => {
     try {
-      // Replace with your local machine's IP address
-      const response = await fetch('http://192.168.1.XX:3000/api/settings');
+      const response = await fetch(`${API_BASE}/settings`);
       const data = await response.json();
-      setPushEnabled(data.pushEnabled);
+      
+      // Sync global context with backend data
+      setNotificationsEnabled(data.pushEnabled);
       setUnit(data.unit);
     } catch (error) {
-      console.error("Error loading settings:", error);
+      console.error("Error loading settings from lab:", error);
     } finally {
       setLoading(false);
     }
   };
 
-  // 2. Function to sync changes back to the backend
+  // 2. Sync changes back to the modular backend
   const syncSettings = async (newPush: boolean, newUnit: string) => {
     try {
-      await fetch('http://192.168.1.XX:3000/api/settings', {
+      const response = await fetch(`${API_BASE}/settings`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ pushEnabled: newPush, unit: newUnit }),
       });
+      
+      if (!response.ok) throw new Error("Sync failed");
     } catch (error) {
-      Alert.alert("Sync Error", "Could not save settings to lab database.");
+      // If sync fails, we alert the user but the local UI remains updated
+      Alert.alert("Sync Error", "Settings saved locally, but failed to sync with Lab Cloud.");
     }
   };
 
   const handlePushToggle = (value: boolean) => {
-    setPushEnabled(value);
-    syncSettings(value, unit); // Instantly update backend
+    setNotificationsEnabled(value); // Update global UI immediately
+    syncSettings(value, unit);     // Sync to Firebase via Express
   };
 
   const handleUnitToggle = (value: string) => {
-    setUnit(value);
-    syncSettings(pushEnabled, value); // Instantly update backend
+    setUnit(value);               // Update global UI (Dashboard will auto-convert)
+    syncSettings(notificationsEnabled, value);
   };
 
   if (loading) {
     return (
-      <View style={[styles.safeArea, { justifyContent: 'center' }]}>
+      <View style={[styles.safeArea, { justifyContent: 'center', alignItems: 'center' }]}>
         <ActivityIndicator size="large" color="#1B4332" />
+        <Text style={{ marginTop: 10, color: '#1B4332', fontWeight: '600' }}>Accessing Lab Config...</Text>
       </View>
     );
   }
@@ -62,38 +73,38 @@ const MenuScreen: React.FC = () => {
     <SafeAreaView style={styles.safeArea}>
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         
-        {/* Unified Branding Header */}
+        {/* Branding Header */}
         <View style={styles.header}>
           <Text style={styles.headerTitle}>Abacanana</Text>
           <Text style={styles.headerSub}>Settings & Menu</Text>
         </View>
 
         <View style={styles.content}>
-          {/* Push Notifications Setting */}
+          {/* Push Notifications Card */}
           <View style={styles.menuCard}>
             <View style={styles.iconCircle}>
-              <MaterialCommunityIcons name="bell-outline" size={24} color="#1B4332" />
+              <MaterialCommunityIcons name="bell-ring-outline" size={24} color="#1B4332" />
             </View>
             <View style={styles.textContainer}>
               <Text style={styles.menuTitle}>Push Notifications</Text>
-              <Text style={styles.menuDetail}>Receive alerts for lab thresholds</Text>
+              <Text style={styles.menuDetail}>Alerts for critical sensor levels</Text>
             </View>
             <Switch 
-              value={pushEnabled} 
+              value={notificationsEnabled} 
               onValueChange={handlePushToggle}
               trackColor={{ false: "#A8B95B", true: "#1B4332" }}
-              thumbColor={pushEnabled ? "#F1E5AC" : "#F1E5AC"}
+              thumbColor={notificationsEnabled ? "#F1E5AC" : "#F1E5AC"}
             />
           </View>
 
-          {/* Temperature Unit Toggle */}
+          {/* Temperature Unit Toggle Card */}
           <View style={styles.menuCard}>
             <View style={styles.iconCircle}>
-              <MaterialCommunityIcons name="thermometer-cog" size={24} color="#1B4332" />
+              <MaterialCommunityIcons name="molecule" size={24} color="#1B4332" />
             </View>
             <View style={styles.textContainer}>
               <Text style={styles.menuTitle}>Temperature Unit</Text>
-              <Text style={styles.menuDetail}>Toggle between Celsius and Fahrenheit</Text>
+              <Text style={styles.menuDetail}>Display readings in {unit === 'C' ? 'Celsius' : 'Fahrenheit'}</Text>
             </View>
             
             <View style={styles.toggleContainer}>
@@ -113,14 +124,15 @@ const MenuScreen: React.FC = () => {
             </View>
           </View>
 
-          {/* About/Info Card */}
+          {/* Footer / About */}
           <View style={styles.footerInfo}>
-             <MaterialCommunityIcons name="flask-outline" size={20} color="#1B4332" style={{opacity: 0.5}}/>
-             <Text style={styles.versionText}>Abacanana Monitoring System v1.0.2</Text>
+             <MaterialCommunityIcons name="leaf-maple" size={20} color="#1B4332" style={{opacity: 0.5}}/>
+             <Text style={styles.versionText}>Abacanana Lab Cloud Connected v1.1.0</Text>
           </View>
         </View>
 
-        <View style={{ height: 100 }} />
+        {/* Space for the bottom tab bar */}
+        <View style={{ height: 120 }} />
       </ScrollView>
     </SafeAreaView>
   );
