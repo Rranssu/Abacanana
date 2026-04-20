@@ -12,7 +12,7 @@ import MenuScreen from "./screens/MenuScreen";
 
 // 1. API Configuration
 // Replace with your actual local IP address (NOT localhost)
-const API_BASE = "http://localhost:3000/api"; 
+const API_BASE = "https://abacanana-backend.onrender.com/api"; 
 
 export const AppContext = createContext<any>(null);
 const Tab = createBottomTabNavigator();
