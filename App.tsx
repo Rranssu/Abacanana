@@ -9,7 +9,7 @@ import { Alert } from "react-native";
 import DashboardScreen from "./screens/DashboardScreen";
 import NotificationsScreen from "./screens/NotificationsScreen";
 import MenuScreen from "./screens/MenuScreen";
-const API_BASE = "https://abacanana-backend.onrender.com/"; 
+const API_BASE = "https://abacanana-backend.onrender.com/api"; 
 
 export const AppContext = createContext<any>(null);
 const Tab = createBottomTabNavigator();
