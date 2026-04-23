@@ -9,10 +9,7 @@ import { Alert } from "react-native";
 import DashboardScreen from "./screens/DashboardScreen";
 import NotificationsScreen from "./screens/NotificationsScreen";
 import MenuScreen from "./screens/MenuScreen";
-
-// 1. API Configuration
-// Replace with your actual local IP address (NOT localhost)
-const API_BASE = "https://abacanana-backend.onrender.com/api"; 
+const API_BASE = "https://abacanana-backend.onrender.com/"; 
 
 export const AppContext = createContext<any>(null);
 const Tab = createBottomTabNavigator();
@@ -23,8 +20,6 @@ export default function App() {
   const [humThreshold, setHumThreshold] = useState(85);
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);
   const [unit, setUnit] = useState("C");
-
-  // 2. Initial Sync: Fetch Lab Settings from Firebase on Start
   useEffect(() => {
     const fetchInitialSettings = async () => {
       try {
