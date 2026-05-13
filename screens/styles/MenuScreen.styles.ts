@@ -3,54 +3,66 @@ import { StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#F1E5AC', // Cream base
+    backgroundColor: '#FFFFFF', // Changed to White
   },
   container: {
     flex: 1,
   },
   header: {
-    backgroundColor: '#B7C96B', // Olive Header
-    paddingTop: 40,
-    paddingBottom: 25,
-    borderBottomLeftRadius: 40,
-    borderBottomRightRadius: 40,
+    backgroundColor: '#B7C96B', // Kept Olive Green
+    paddingTop: 50,
+    paddingBottom: 30,
+    borderBottomLeftRadius: 35,
+    borderBottomRightRadius: 35,
     alignItems: 'center',
-    elevation: 4,
+    // Added depth for the white background
     shadowColor: '#1B4332',
+    shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.1,
     shadowRadius: 10,
+    elevation: 5,
   },
   headerTitle: {
-    fontSize: 32,
-    fontWeight: '800',
+    fontSize: 34,
+    fontWeight: '300', // Thinner, more modern look
     color: '#1B4332',
+    letterSpacing: 1,
   },
   headerSub: {
-    fontSize: 16,
+    fontSize: 14,
     color: '#1B4332',
-    opacity: 0.7,
+    opacity: 0.6,
+    textTransform: 'uppercase',
+    letterSpacing: 2,
+    marginTop: 2,
   },
   content: {
     padding: 20,
-    marginTop: 10,
+    marginTop: 15,
   },
   menuCard: {
-    backgroundColor: '#B7C96B',
-    borderRadius: 25,
-    padding: 16,
+    backgroundColor: '#F1E5AC', // Changed from Olive to Cream for a "lighter" look
+    borderRadius: 28, // Matches the new Dashboard card radius
+    padding: 20,
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 16,
-    elevation: 2,
+    borderWidth: 1,
+    borderColor: 'rgba(27, 67, 50, 0.05)',
   },
   iconCircle: {
-    width: 45,
-    height: 45,
-    borderRadius: 22.5,
-    backgroundColor: 'rgba(241, 229, 172, 0.4)',
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: '#FFFFFF', // White circles for icons to pop against cream
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 15,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 2,
+    elevation: 1,
   },
   textContainer: {
     flex: 1,
@@ -64,36 +76,38 @@ export const styles = StyleSheet.create({
     fontSize: 13,
     color: '#1B4332',
     opacity: 0.6,
+    marginTop: 2,
   },
-  // Custom Unit Toggle Styles
+  // Updated Unit Toggle for the new palette
   toggleContainer: {
     flexDirection: 'row',
-    backgroundColor: 'rgba(27, 67, 50, 0.1)',
-    borderRadius: 15,
+    backgroundColor: 'rgba(27, 67, 50, 0.08)',
+    borderRadius: 18,
     padding: 4,
-    width: 90,
+    width: 100,
     justifyContent: 'space-between',
   },
   unitBtn: {
     flex: 1,
-    paddingVertical: 6,
+    paddingVertical: 8,
     alignItems: 'center',
-    borderRadius: 12,
+    borderRadius: 14,
   },
   activeUnit: {
-    backgroundColor: '#1B4332',
+    backgroundColor: '#1B4332', // Deep Forest Green active state
   },
   unitText: {
     fontSize: 14,
-    fontWeight: 'bold',
+    fontWeight: '800',
     color: '#1B4332',
   },
   activeUnitText: {
-    color: '#F1E5AC',
+    color: '#FFFFFF', // White text when selected
   },
   footerInfo: {
     alignItems: 'center',
-    marginTop: 20,
+    marginTop: 30,
+    paddingBottom: 40,
     flexDirection: 'row',
     justifyContent: 'center',
   },
@@ -101,6 +115,63 @@ export const styles = StyleSheet.create({
     color: '#1B4332',
     opacity: 0.4,
     fontSize: 12,
+    fontWeight: '600',
     marginLeft: 8,
-  }
+    textTransform: 'uppercase',
+    letterSpacing: 1,
+  },
+  // Add these to your existing StyleSheet inside MenuScreen.styles.tsx
+
+sectionTitle: {
+  fontSize: 14,
+  fontWeight: '800',
+  color: '#1B4332',
+  opacity: 0.5,
+  marginBottom: 15,
+  textTransform: 'uppercase',
+  letterSpacing: 1.5,
+},
+thresholdGrid: {
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  marginBottom: 12,
+},
+thresholdCard: {
+  backgroundColor: '#F1E5AC',
+  borderRadius: 20,
+  padding: 15,
+  width: '48%',
+},
+inputLabel: {
+  fontSize: 11,
+  fontWeight: '700',
+  color: '#1B4332',
+  opacity: 0.6,
+  marginBottom: 5,
+},
+textInput: {
+  fontSize: 20,
+  fontWeight: 'bold',
+  color: '#1B4332',
+  paddingVertical: 0,
+},
+saveButton: {
+  backgroundColor: '#1B4332',
+  borderRadius: 20,
+  paddingVertical: 15,
+  alignItems: 'center',
+  marginTop: 10,
+  shadowColor: '#000',
+  shadowOffset: { width: 0, height: 2 },
+  shadowOpacity: 0.1,
+  shadowRadius: 4,
+  elevation: 3,
+},
+saveButtonText: {
+  color: '#F1E5AC',
+  fontWeight: '900',
+  letterSpacing: 1,
+  fontSize: 13,
+},
+  
 });
