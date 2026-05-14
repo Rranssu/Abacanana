@@ -102,7 +102,7 @@ const MenuScreen: React.FC = () => {
           
           <View style={styles.thresholdGrid}>
             <View style={styles.thresholdCard}>
-              <Text style={styles.inputLabel}>Min Temp (°C)</Text>
+              <Text style={styles.inputLabel}>Minimum Temperature (°C)</Text>
               <TextInput 
                 style={styles.textInput}
                 keyboardType="numeric"
@@ -111,7 +111,7 @@ const MenuScreen: React.FC = () => {
               />
             </View>
             <View style={styles.thresholdCard}>
-              <Text style={styles.inputLabel}>Max Temp (°C)</Text>
+              <Text style={styles.inputLabel}>Maximum Temperature (°C)</Text>
               <TextInput 
                 style={styles.textInput}
                 keyboardType="numeric"
@@ -123,7 +123,7 @@ const MenuScreen: React.FC = () => {
 
           <View style={styles.thresholdGrid}>
             <View style={styles.thresholdCard}>
-              <Text style={styles.inputLabel}>Min Hum (%)</Text>
+              <Text style={styles.inputLabel}>Minimum Humidity (%)</Text>
               <TextInput 
                 style={styles.textInput}
                 keyboardType="numeric"
@@ -132,7 +132,7 @@ const MenuScreen: React.FC = () => {
               />
             </View>
             <View style={styles.thresholdCard}>
-              <Text style={styles.inputLabel}>Max Hum (%)</Text>
+              <Text style={styles.inputLabel}>Maximum Humidity (%)</Text>
               <TextInput 
                 style={styles.textInput}
                 keyboardType="numeric"
@@ -148,21 +148,6 @@ const MenuScreen: React.FC = () => {
 
           {/* 2. Preferences Section */}
           <Text style={[styles.sectionTitle, {marginTop: 30}]}>Preferences</Text>
-
-          <View style={styles.menuCard}>
-            <View style={styles.iconCircle}>
-              <MaterialCommunityIcons name="bell-ring-outline" size={24} color="#1B4332" />
-            </View>
-            <View style={styles.textContainer}>
-              <Text style={styles.menuTitle}>Push Notifications</Text>
-            </View>
-            <Switch 
-              value={notificationsEnabled} 
-              onValueChange={handlePushToggle}
-              trackColor={{ false: "#A8B95B", true: "#1B4332" }}
-              thumbColor="#F1E5AC"
-            />
-          </View>
 
           <View style={styles.menuCard}>
             <View style={styles.iconCircle}>
@@ -182,7 +167,7 @@ const MenuScreen: React.FC = () => {
           </View>
 
           <View style={styles.footerInfo}>
-             <Text style={styles.versionText}>Abacanana Lab Cloud Connected v1.2.0</Text>
+             <Text style={styles.versionText}>Developed By Abacanana Team</Text>
           </View>
         </View>
 

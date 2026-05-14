@@ -50,7 +50,7 @@ const DashboardScreen = () => {
   // FILTER CONFIG (ICON + LABEL)
   // =========================
   const filters = [
-    { key: 'minutes', icon: 'clock-outline', label: 'Min' },
+    { key: 'minutes', icon: 'clock-outline', label: 'Minutes' },
     { key: 'hours', icon: 'clock-time-four-outline', label: 'Hours' },
     { key: 'days', icon: 'calendar-today', label: 'Day' },
     { key: 'weeks', icon: 'calendar-week', label: 'Week' },
